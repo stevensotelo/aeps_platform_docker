@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `__efmigrationshistory`
+-- Table structure for table `__EFMigrationsHistory`
 --
 
-DROP TABLE IF EXISTS `__efmigrationshistory`;
+DROP TABLE IF EXISTS `__EFMigrationsHistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `__efmigrationshistory` (
+CREATE TABLE `__EFMigrationsHistory` (
   `MigrationId` text NOT NULL,
   `ProductVersion` text NOT NULL,
   PRIMARY KEY (`MigrationId`(255))
@@ -30,13 +30,13 @@ CREATE TABLE `__efmigrationshistory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetroleclaims`
+-- Table structure for table `AspNetRoleClaims`
 --
 
-DROP TABLE IF EXISTS `aspnetroleclaims`;
+DROP TABLE IF EXISTS `AspNetRoleClaims`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetroleclaims` (
+CREATE TABLE `AspNetRoleClaims` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `ClaimType` text,
   `ClaimValue` text,
@@ -48,13 +48,13 @@ CREATE TABLE `aspnetroleclaims` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetroles`
+-- Table structure for table `AspNetRoles`
 --
 
-DROP TABLE IF EXISTS `aspnetroles`;
+DROP TABLE IF EXISTS `AspNetRoles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetroles` (
+CREATE TABLE `AspNetRoles` (
   `Id` varchar(127) NOT NULL,
   `ConcurrencyStamp` text,
   `Name` varchar(256) DEFAULT NULL,
@@ -64,13 +64,13 @@ CREATE TABLE `aspnetroles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetuserclaims`
+-- Table structure for table `AspNetUserClaims`
 --
 
-DROP TABLE IF EXISTS `aspnetuserclaims`;
+DROP TABLE IF EXISTS `AspNetUserClaims`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetuserclaims` (
+CREATE TABLE `AspNetUserClaims` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `ClaimType` text,
   `ClaimValue` text,
@@ -82,13 +82,13 @@ CREATE TABLE `aspnetuserclaims` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetuserlogins`
+-- Table structure for table `AspNetUserLogins`
 --
 
-DROP TABLE IF EXISTS `aspnetuserlogins`;
+DROP TABLE IF EXISTS `AspNetUserLogins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetuserlogins` (
+CREATE TABLE `AspNetUserLogins` (
   `LoginProvider` varchar(127) NOT NULL,
   `ProviderKey` varchar(127) NOT NULL,
   `ProviderDisplayName` text,
@@ -100,13 +100,13 @@ CREATE TABLE `aspnetuserlogins` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetuserroles`
+-- Table structure for table `AspNetUserRoles`
 --
 
-DROP TABLE IF EXISTS `aspnetuserroles`;
+DROP TABLE IF EXISTS `AspNetUserRoles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetuserroles` (
+CREATE TABLE `AspNetUserRoles` (
   `UserId` varchar(127) NOT NULL,
   `RoleId` varchar(127) NOT NULL,
   PRIMARY KEY (`UserId`,`RoleId`),
@@ -117,13 +117,13 @@ CREATE TABLE `aspnetuserroles` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetusers`
+-- Table structure for table `AspNetUsers`
 --
 
-DROP TABLE IF EXISTS `aspnetusers`;
+DROP TABLE IF EXISTS `AspNetUsers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetusers` (
+CREATE TABLE `AspNetUsers` (
   `Id` varchar(127) NOT NULL,
   `AccessFailedCount` int(11) NOT NULL,
   `ConcurrencyStamp` text,
@@ -144,13 +144,13 @@ CREATE TABLE `aspnetusers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `aspnetusertokens`
+-- Table structure for table `AspNetUserTokens`
 --
 
-DROP TABLE IF EXISTS `aspnetusertokens`;
+DROP TABLE IF EXISTS `AspNetUserTokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aspnetusertokens` (
+CREATE TABLE `AspNetUserTokens` (
   `UserId` varchar(127) NOT NULL,
   `LoginProvider` varchar(127) NOT NULL,
   `Name` varchar(127) NOT NULL,
@@ -549,7 +549,7 @@ CREATE TABLE `frm_questions` (
   `name` varchar(250) NOT NULL COMMENT 'machine name of the question',
   `label` varchar(400) NOT NULL COMMENT 'label for question',
   `description` varchar(500) NOT NULL COMMENT 'short description of the question',
-  `type` enum('string','int','double','bool','date','time','datetime','unique','multiple') NOT NULL COMMENT 'it sets the type of answer that it will hope gets in the question [string, int, ''double, bool, unique, multiple, geopoint, date, time, datetime, file)]',
+  `type` enum('string','int','double','bool','date','time','datetime','unique','multiple','geopoint','file') NOT NULL COMMENT 'it sets the type of answer that it will hope gets in the question [string, int, double, bool, date, time, datetime, unique, multiple, geopoint, file)]',
   `order` int(11) NOT NULL COMMENT 'It sets the order of the question in each block. between the value is higher will be lower',
   `enable` tinyint(4) NOT NULL COMMENT 'it sets if the question is able or disable',
   `ext_id` varchar(100) DEFAULT NULL COMMENT 'external identificator',

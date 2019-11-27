@@ -1,0 +1,124 @@
+﻿@model IEnumerable<CIAT.DAPA.AEPS.Data.Database.FrmForms>
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+    ViewData["Action"] = Localizer["Action"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="section-title">@ViewData["Title"]</h2>
+<p class="section-lead">@Localizer["Description"]</p>
+
+
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header buttons">
+                <h4>@Localizer["Options"]</h4>
+            </div>
+            <div class="card-body">
+                <p class="text-justify">
+                    @Localizer["OptionsDescription"]
+                </p>
+                @using (Html.BeginForm("ImportXLSForm", "Forms", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group row">
+                        <label for="xlsformvar" class="col-sm-3 col-form-label">@Localizer["XLSFormVar"]</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="xlsformvar" name="xlsformvar" class="form-control" value="plot" />
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="file" id="file" name="file" class="btn" />
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="submit" class="btn btn-icon btn-warning"><i class="fas fa-plus-circle"></i> @Localizer["OptionsImportXLS"]</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header buttons">
+                <a asp-action="Create" class="btn btn-icon btn-success"><i class="fas fa-plus-circle"></i> @Localizer["New"]</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <input type="text" id="txt_search" class="form-control" onkeyup="search_text()" placeholder="@Localizer["Search"]" />
+                    </div>
+                    <table class="table" id="index_list">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ExtId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Updated)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ExtId)
+                                    </td>
+                                    <td>
+                                        @item.Updated.ToString("yyyy-MM-dd HH:mm:ss")
+                                    </td>
+                                    <td class="buttons">
+                                        <form asp-action="Delete" id="frm_delete_@item.Id">
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-icon btn-info" data-toggle="tooltip" data-original-title="@Localizer["Details"]"><i class="fas fa-info"></i></a>
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-icon btn-primary" data-toggle="tooltip" data-original-title="@Localizer["Edit"]"><i class="fas fa-edit"></i></a>
+                                            <input type="hidden" data-val="true" data-val-required="The Código field is required." id="Id" name="Id" value="@item.Id">
+                                            <button data-toggle="tooltip" data-original-title="@Localizer["Delete"]" class="btn btn-icon btn-danger"
+                                                    data-confirm="@Localizer["DeleteConfirmTitle"]|@Localizer["DeleteConfirmQuestion"] <br/><b>@Html.DisplayFor(modelItem => item.Title)</b>" data-confirm-yes="document.getElementById('frm_delete_@item.Id').submit();">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <a asp-action="SetBlocks" asp-route-id="@item.Id" class="btn btn-icon btn-light" data-toggle="tooltip" data-original-title="@Localizer["SetBlocks"]"><i class="fas fa-tasks"></i></a>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ManagementScriptsPartial")
+}

@@ -1,6 +1,6 @@
-version: '3'
+version: '1'
 services:  
-  mysql:
+  aeps_database:
     build:
       context: ./aeps_database_mysql/
       dockerfile: Dockerfile
@@ -10,21 +10,34 @@ services:
     env_file:
      - ./aeps_database_mysql/.env
 
-  superset:
+  aeps_web_management:
     build:
-      context: ./aeps_visualization_superset/
+      context: ./aeps_web_management/
       dockerfile: Dockerfile
     restart: always
     depends_on:
-      - mysql
-    environment:
-      MAPBOX_API_KEY: ""
+      - aeps_database
+    env_file:
+     - ./aeps_web_management/.env
     ports:
-      - "8088:8088"
+      - "8000:80"
     volumes:
+
+#  superset:
+#    build:
+#      context: ./aeps_visualization_superset/
+#      dockerfile: Dockerfile
+#    restart: always
+#    depends_on:
+#      - mysql
+#    environment:
+#      MAPBOX_API_KEY: ""
+#    ports:
+#      - "8088:8088"
+#    volumes:
       
 volumes:
   mysql:
 #    - ./mysql/:/var/lib/mysql
-  redis:
+#  redis:
 #    - ./superset/:/etc/superset/

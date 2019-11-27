@@ -1,0 +1,31 @@
+﻿@model CIAT.DAPA.AEPS.WebAdministrative.Models.FormsViewModels.XLSFormSummaryViewModel
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+    ViewData["Action"] = Localizer["Action"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-6">
+        <div class="card">
+            <div class="card-header buttons">
+                <h4>@Localizer["Subtitle"]</h4>
+            </div>
+            <div class="card-body pb-0">
+                @Localizer["Description"]
+                <p class="text-justify">
+                    @if (Model.Succesful)
+                    {
+                        @Localizer["MessageSuccesful"]
+                    }
+                    else
+                    {
+                        @Localizer["MessageFailed"]
+                        @Model.Message
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
