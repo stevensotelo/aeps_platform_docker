@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CIAT.DAPA.AEPS.Users.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+    ViewData["Action"] = Localizer["Action"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="section-title">@ViewData["Title"]</h2>
+<p class="section-lead">@Localizer["Description"]</p>
+
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">            
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <input type="text" id="txt_search" class="form-control" onkeyup="search_text()" placeholder="@Localizer["Search"]" />
+                    </div>
+                    <table class="table" id="index_list">
+                        <thead>
+                            <tr>
+                                <th>@Localizer["Email"]</th>
+                                <th>@Localizer["UserName"]</th>
+                                <th>@Localizer["LockoutEnd"]</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LockoutEnd)
+                                    </td>
+                                    <td class="buttons">
+                                        <form asp-action="Delete" id="frm_delete_@item.Id">                                            
+                                            <input type="hidden" data-val="true" data-val-required="The Id field is required." id="Id" name="Id" value="@item.Id">
+                                            <button data-toggle="tooltip" data-original-title="@Localizer["Delete"]" class="btn btn-icon btn-danger"
+                                                    data-confirm="@Localizer["DeleteConfirmTitle"]|@Localizer["DeleteConfirmQuestion"] <br/><b>@Html.DisplayFor(modelItem => item.Id)</b>" data-confirm-yes="document.getElementById('frm_delete_@item.Id').submit();">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ManagementScriptsPartial")
+}

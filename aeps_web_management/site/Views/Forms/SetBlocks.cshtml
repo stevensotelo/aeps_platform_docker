@@ -1,0 +1,91 @@
+﻿@model IEnumerable<CIAT.DAPA.AEPS.Data.Database.FrmBlocksForms>
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+    ViewData["Action"] = Localizer["Action"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="section-title">@Localizer["Subtitle"]</h2>
+<p class="section-lead">@Localizer["Description"]</p>
+
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header buttons">
+                <h4>@Localizer["Options"]</h4>
+            </div>
+            <div class="card-body">
+                <a asp-action="Index" class="btn btn-icon btn-warning"><i class="fas fa-angle-left"></i> @Localizer["Return"]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header buttons">
+                <h4>@ViewBag.Form.Title</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="AddBlock">
+                    @Html.Hidden("Form", (string)ViewBag.Form.Id.ToString())
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label for="Block" class="col-sm-1 col-form-label">@Localizer["Blocks"]:</label>
+                        <div class="col-sm-5">
+                            @Html.DropDownList("Block", ViewBag.Block as SelectList, new { @class = "form-control" })
+                        </div>
+                        <label for="Order" class="col-sm-1 col-form-label">@Localizer["Order"]:</label>
+                        <div class="col-sm-1">
+                            @Html.TextBox("Order", "0", new { @class = "form-control", type = "number" })
+                        </div>
+                        <div class="col-sm-1">
+                            <input type="submit" value="@Localizer["Add"]" class="btn btn-success" />
+                        </div>
+
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BlockNavigation)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BlockNavigation.Description)
+                                    </td>
+                                    <td>
+                                        <form asp-action="RemoveBlock" id="frm_delete_@item.Block">
+                                            @Html.Hidden("Form", (string)ViewBag.Form.Id.ToString())
+                                            @Html.Hidden("Block", (string)item.Block.ToString())
+                                            <button data-toggle="tooltip" data-original-title="@Localizer["Delete"]" class="btn btn-icon btn-danger"
+                                                    data-confirm="@Localizer["DeleteConfirmTitle"]|@Localizer["DeleteConfirmQuestion"] <br/><b>@Html.DisplayFor(modelItem => item.BlockNavigation.Description)</b>" data-confirm-yes="document.getElementById('frm_delete_@item.Block').submit();">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = Localizer["Title"];
+    ViewData["Action"] = Localizer["Action"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="section-title">@ViewData["Title"]</h2>
+<p class="section-lead">@Localizer["Description"]</p>
+
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="embed-responsive embed-responsive-1by1">
+                    <iframe class="embed-responsive-item"
+                            src="//localhost:8088/r/5&standalone=true" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ManagementScriptsPartial")
+}
