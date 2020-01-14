@@ -1,14 +1,14 @@
-version: '1'
-services:  
+version: "2"
+services:
   aeps_database:
     build:
       context: ./aeps_database_mysql/
       dockerfile: Dockerfile
-    restart: always        
+    restart: always
     ports:
       - "3306:3306"
     env_file:
-     - ./aeps_database_mysql/.env
+      - ./aeps_database_mysql/.env
 
   aeps_web_management:
     build:
@@ -18,11 +18,10 @@ services:
     depends_on:
       - aeps_database
     env_file:
-     - ./aeps_web_management/.env
+      - ./aeps_web_management/.env
     ports:
       - "8000:80"
-    volumes:
-
+    #volumes:
 #  superset:
 #    build:
 #      context: ./aeps_visualization_superset/
@@ -35,9 +34,9 @@ services:
 #    ports:
 #      - "8088:8088"
 #    volumes:
-      
-volumes:
-  mysql:
+
+#volumes:
+#  mysql:
 #    - ./mysql/:/var/lib/mysql
 #  redis:
 #    - ./superset/:/etc/superset/
